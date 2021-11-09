@@ -1,0 +1,56 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+    {% if title %}{{ title }} - Simple Scoreboard{% else %}Every victory counts{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<!--<div class="container-fluid">-->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">{{ message | safe}}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+<!---->
+<!--    {# application content needs to be provided in the app_content block #}-->
+{% block app_content %}
+
+<div class='container-fluid'>
+<!--    <div class="card-columns">-->
+    {% for name in teamnames %}
+    <div class="col-xs-6 eighty">
+    <div class="card eighty">
+        <h3 class="card-header">{{name.team_name}}</h3>
+        <div class="card-body">
+<!--            <p class="card-text"><button class="btn btn-sm" type="submit" id="undo_{{name.team_id}}" onclick="decrease(event);">Undo</button></p>-->
+<p class="card-text">
+<!--            <button class="btn btn-sm pull-right" type="submit" id="timeout_{{name.team_id}}" onclick="increase(event);">Time Outs: {{game[name.scorestr]}}</button>-->
+            <button class="btn btn-sm pull-left" type="submit" id="undo_{{name.team_id}}" onclick="decrease(event);">Undo</button>
+            <button class="btn btn-block bg-info" type="submit" id={{name.team_id}} name={{name.scorestr}} value={{game[name.scorestr]}} onclick="increase(event);">{{game[name.scorestr]}}</button></p>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+<!--</div>-->
+<form method ="post">
+<button class="btn btn-md btn-secondary" type="submit" id="save" name="save" value=False>Save Game</button>
+<button class="btn btn-md btn-danger" type="submit" id="game_over" name="game_over" value=False>End Game</button>
+</form>
+{% endblock %}
+ </div>
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    {{ moment.lang(g.locale) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src={{ url_for('static', filename="increase.js")}}></script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='my-style.css') }}">
+
+{% endblock %}

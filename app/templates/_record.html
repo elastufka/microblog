@@ -1,0 +1,15 @@
+<table class="table table-hover">
+    <tr>
+        <td>
+<!--            <a href="{{ url_for('user', username=post.user_id.username) }}">-->
+<!--                {{ post.owner }}-->
+<!--            </a>-->
+        <b>
+      {{ post.team1 }} vs {{ post.team2 }}</b>
+      <br>
+      {{ post.score1 }} :  {{ post.score2 }}
+      <br>
+      {{ moment(post.timestamp).fromNow() }}
+        </td>
+    </tr>
+</table>

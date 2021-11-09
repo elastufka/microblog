@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<h1>Name the competitors</h1>
+<!--    {% if form %}-->
+<!--    {{ wtf.quick_form(form) }}-->
+<!--    <br>-->
+<!--    {% endif %}-->
+<form action="" method="post">
+{{form.hidden_tag()}}
+
+<ul class="list-group">
+{% for field in form.teams %}
+<li class = 'list-group-item'>
+    {{field.label}}
+    <div class="form-group m-5">
+        {{field.team_name(class="form-control")}}
+    </div>
+</li>
+{% endfor %}
+</ul>
+{{form.submit(class="btn-lg btn-primary m-5")}}
+    </form>
+{% endblock %}
